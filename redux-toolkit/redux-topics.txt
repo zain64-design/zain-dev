@@ -1,0 +1,83 @@
+Day 1:
+
+1: Immutability
+2: ways to achieve Immutability in js
+3: what and why of redux
+4: working principle of redux
+5: packages
+6: Adding redux in application
+7: components of redux -actions, reducers, etc.
+8: use selector best practices
+=> redux best practices - reducers + selectors
+=> how to debug redux 
+
+Day:2
+
+1: Enhancers (Middleware)
+2: Writing our own Middleware
+3: Redux Thunk
+4: Redux Dev Tool
+
+Day:3
+(1): Fundatmentals Difference Between Redux And Redux Toolkit
+
+(2): can you have multiple stores ? (yes but you should not do this.we need to use other state lib like MOBX, MOBX STATE TREE, Zustand.But redux react k sath ziyada compatible hai cuz redux jis ne dev ki hai usne react banate waqt react ki core team k sath kaam kara hai react ko banane mein)
+
+
+(3): what options do you have other than redux ?
+
+(4): best practices useSelector hook
+ans: (use this multiple times, avoid accessing objects, only return the required things other wise components might re-render un-necessarily)
+
+(): ways to solve un-necessary re-render
+
+1: only access & extract primitive values, by calling useSelector multiple times: 
+2: shallow equal(not work on nested obj)
+3: using reselect lib
+
+
+(5): redux best practices
+
+1: Dont perform side effect (timeout, date etc).our reducers fn should be pure fn koi bhi outside method jo is fn se outside hai usko access na kara jaye.yaha bus state ko update karne ka code and data transformation logic hoga.
+
+2: no non serializable data means like string,array,boolean, dont use obj instance and class obj(js mein multiple obj hote hein jinka diff behaviour hota hai.redux mein obj hota hai jo store creat hota hai wo stringify hojata hai.jab bhi stringify karte hein to uska ref lost hojata hai)
+exp:
+const store = {date: new Date(), fn: function () {}};
+
+const str = JSON.stringify(store);
+
+const obj = JSON.parse(str);
+
+console.log(obj,store)
+
+3: Do note mutate state (redux-immutable-state-invariant)
+
+4: dont import store directly in any nested comp only pass it in provider comp
+
+5: redux recommend to store our data in obj form (incase agar hamaray passs array mein data hai or us mein kuch bhi find karna hai to hum ko by id to hum ko loop run karna hoga with out loop agar index nahi hai so we cant excess it. but by obj we can excess the data by using key(avoid un-necessary data traversing))
+
+6: avoid putting form data in redux
+
+(6): how to debug redux apps 
+
+ans: (using console.log action and state, Find bad state, check actions, fix reducers, write test)
+
+(7): Redux dev tools
+
+(8): Enhancers
+
+(9): Writing a logger
+
+(10): Writing promise support
+
+(11): Writing a thunk
+
+(12): Adding Middleware
+
+(13): RTK components
+Slice, Reducers, Actions, creatAsyncThunk, actionFromEntityAdapter
+
+RTK:
+
+
+

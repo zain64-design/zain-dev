@@ -1,0 +1,21 @@
+      {
+          "_id": 1,
+          "product" : "Laptop" ,
+          "price": [900, 500, 700],
+          "color": ["Black", "White", "Grey"],
+          "brand": [{"Apple": "Available", "Asus": "Not-Available"}]          
+      }
+       {
+            "_id": 2,
+          "product" : "Mobile" ,
+          "price": [200, 600, 500],
+          "color": ["White", "Silver", "Black"],
+           "brand": [{"Apple": "Available", "Redmi": "Available"}]
+       }
+       {
+          "_id": 3,
+          "product" : "Airpods" ,
+          "price": [100, 250, 350],
+          "color": ["Black", "White"],
+           "brand": [{"Apple": "Available", "Samsung": "Not-Available", "Redmi":"Available"}]
+       }

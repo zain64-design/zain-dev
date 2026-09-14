@@ -1,0 +1,36 @@
+show dbs;
+
+// create new db
+use dataBaseName
+// if we dont create any collection in our db so db will not show: we need to create collections now:
+
+// drop data base
+db.dropDatabase();
+
+// show collection
+show collection;
+
+// create new collection
+db.createCollection('newCollection');
+
+// delete collection
+db.newCollection.drop();
+
+// insert one data
+db.blogs.insertOne({'category':'technology','name':'Daniel',date:11/11/2024})
+
+// insert multiple data
+db.blogs.insertMany([{'category':'technology','name':'Adam',date:11/15/2024},{'category':'medical','name':'shawn',date:11/12/2024},{'category':'sports','name':'michel',date:11/13/2024}])
+
+// to see your collection documents
+db.blogs.find()
+
+// to see only 5 from 100 documents in collection
+db.blogs.find().limit(5)
+
+// to find from key value from documents in collection
+db.blogs.find({'name':'Daniel'})
+
+// to see only 1 from 100 documents in collection
+db.blogs.findOne({'name':'Daniel'})
+

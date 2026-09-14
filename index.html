@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Display Current Date</title>
+</head>
+
+<body>
+
+    <p><span id="current-date"></span></p>
+
+    <script>
+        const today = new Date();
+        const formattedDate = today.toLocaleDateString();
+        document.getElementById("current-date").textContent = formattedDate;
+    </script>
+
+</body>
+
+</html>

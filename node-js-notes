@@ -1,0 +1,264 @@
+// To start mongosh server(Command):
+mongosh
+
+// see database(command):
+show dbs; or show databases;
+
+// to create data base:
+// (command):
+use students
+
+// Delete Database(command):
+db.dropDatabase()
+
+// we need to add collection and document in the created database to show in database files
+// (command):
+db.createCollection('data')
+
+// see collection(command):
+show collections
+
+// Delete collections(command):
+db.data.drop()
+
+// to create document in collections we need to add command:
+
+// single document add(command):
+db.data.insertOne({
+name:  "zain",
+age: 20,
+});
+
+// multi document add(command):
+db.data.insertMany([
+{
+name:  "zain",
+age: 20,
+},
+{
+name:  "ali",
+age: 20,
+},
+{
+name:  "bilal",
+age: 20,
+},
+]);
+
+// to see documents(command):
+db.data.find()
+
+// By default the db order behaviour is true which mean when you insert multiple documents and there is any error in any one document the data will be inserted in db before the error document and
+// after error document the data will not be added in collection. Then we need to handle this situation just add (command):
+{ordered: false}
+
+// if we want to find same data in document we need this (command):
+db.data.find({'name':'zain'})
+or
+db.data.findOne({'name':'zain'})
+
+// if we want to import json file in our data base first we need to back out from mongosh then we need this (command):mongoimport D:\docs\comments.json -d dalioDB -c comments
+
+// we need the directory path where the file is located like this:
+E: \mongo\mongo_json\products.json
+
+// And if we have not create collection and documnet we will create like these two through this (command):
+mongoimport E:\mongo\mongo_json\products.json -d shop -c products
+
+// And if we have json file like array in object we need this (command):
+mongoimport E:\mongo\mongo_json\products.json -d shop -c products --jsonArray
+
+// If we want to export json file from data base we need this (command):
+mongoexport -d shop -c products -o E:\mongo\mongo_json\productstest.json
+
+// comparison operators
+
+// equal to (command) = $eq
+// not equal to (command) = $ne
+// greater than (command) = $gt
+// greater than equal to (command) = $gte
+// less than (command) = $lt
+// less than equal to (command) = $lte
+// in operator means only show selected values (command) = $in
+// not in operator means except selected values show remaining values (command) = $nin
+
+example: db.products.find({'price':{$eq: 699}});
+example: db.products.find({'price':{$in: [699,599,899]}});
+
+// want to cound how many same values in documents: example: 
+db.products.find({ 'price': { $eq: 699 } }).count()
+
+
+// cursor methods
+count(), limit(), skip(), sort()
+
+// total count of documents in db collection
+db.products.find({ 'price': { $gt: 250 } }).count();
+// show only selected 5 documents
+db.products.find({ 'price': { $gt: 250 } }).limit(5);
+// show only selected 5 documents and skip from first to second doc
+db.products.find({ 'price': { $gt: 250 } }).limit(5).skip(2);
+// (1) for ascending and (-1) for descending
+db.products.find({ 'price': { $gt: 250 } }).limit(3).sort({ 'price': 1 });
+
+// logical operator
+
+$and, $or, $not, $nor
+
+// $and if both coniditions are true we will get doc that contains these data in it.
+db.products.find({ $and: [{ 'price': { $gt: 2000 } }, { 'name': 'ring' }] })
+// $or if 1st conidition is true show the doc or if 2nd condition is true the show doc also
+db.products.find({ $or: [{ 'price': { $gt: 2000 } }, { 'name': 'ring' }] })
+// $nor except these 2 docs data show the remaining docs
+db.products.find({ $nor: [{ 'price': { $gt: 2000 } }, { 'name': 'ring' }] })
+// price is not equal to or greater than 2000
+db.products.find({ 'price': { $not: { $eq: 2000 } } }).count()
+
+db.products.find({ $or: [{ 'price': { $lt: 50 } }, { 'name': 'Kids Educational Toys' }] });
+
+// expression operator
+
+// we can multiply subtract divide and using expression operator
+db.sales.find({ $expr: { $gt: [{ $multiply: ["$quantity", "$price"] }, "$targetPrice"], }, });
+
+// elements operator
+$exists, $type, $size,
+    
+// if we want to check the key value of an obj or doc is available or not we need this (command):
+db.products.find({'price':{$exists: true},'price':{$lt:500}}).count()
+
+// if we want to find the size of an array how many objects or doc in this array we need this (command):
+db.comments.find({ 'comments': { $size: 4 } })
+// or if we want to find comments and dont want to show the remaining data in doc we need to use projection method 1 means is show the selected field and 0 means not show the selected field.
+db.comments.find({ 'comments': { $size: 2 } }, { comments: 1, _id: 0 })
+db.comments.find({ 'comments': { $size: 2 } }, { comments: 0, title: 0, _id: 0 })
+
+// (embeded document) if you want to show array obj in array obj 
+db.comments.find({ 'comments.user': 'lily' })
+
+// if you want to check data types of the document we need to use (command):
+db.products.find({'price':{$type:'number'}}).count()
+// 1: Double
+// 2: String
+// 3: Object
+// 4: Array
+// 5: Binary data
+// 6: Undefined
+// 7: Object id
+// 8: Boolean = bool
+// 9: Date
+// 10: Null
+// 11: Regular expression
+// 12: JavaScript code
+// 13: Symbol
+// 14: JavaScript code with scope
+// 17: 64-bit integer
+
+// elements match operators
+
+//? 4:we need to return an comments array which must have this two (user = alice & vinod) elements only in it.
+//! We need to use $all operator. Here the order doesn’t’ matter.
+
+db.comments.find({ "comments.user": { $all: ["Alice", "Vinod"] } }); 
+db.comments.find({ 'comments.user': { $all: ['Alice', 'Vinod', 'Bob'] } })
+
+//? 5:  In Array for multiple querying we user $elemMatch operator.
+//* Here is the syntax: {field: {$elemMatch: { {query1},{query2}..  }}}
+db.comments.find({ comments: {$elemMatch: {'user':'Alice' , 'text':'Awesome article!'  } }  })
+//? by the wat you can write the same using simple way
+db.comments.find({ 'comments.user': 'Alice', 'comments.text': 'Awesome article!' })
+
+// update single and multiple
+
+db.sales.updateOne({ _id: 3 }, { $set: { 'price': 55 } })
+db.products.updateOne({ 'name': 'Car Jump Starter' }, { $set: { 'price': 55 } })
+
+db.products.updateMany({ 'name': 'Car Jump Starter' }, { $set: { 'price': 55 } })
+// update in pure array values
+db.products.updateMany({'name':'Modern Sofa Set'},{$set: {'colors.0':'#000'}})
+// update in pure array values
+db.products.updateMany({ 'name': 'Car Jump Starter' }, { $set: { 'colors': ['#111111', '#111111', '#111111'] } })
+
+db.products.updateMany({ $and: [{ '_id': ObjectId("64c23f13f8ffc4957dc4f308") }, { 'price': 55 }] }, { $set: { 'colors': ['#333', '#333333', '#000'] } })
+
+db.products.updateMany({ $and: [{ '_id': ObjectId("64c23f13f8ffc4957dc4f308") }, { 'price': 55 }] }, { $set: { 'colors': ['#333', '#777', '#000'] } })
+
+db.products.updateMany({ 'colors': { $eq: '#111111' } }, { $set: { 'colors.$': '#999999' } })
+
+db.laptops.updateMany({ 'price': { $ne: 200 } }, { $set: { 'price.$[]': 100 } })
+
+// removing and renaming the fields
+// if we want to change the key name of the document we need to use this (command) $rename:
+db.products.updateMany({ 'price': 55 }, { $rename: { 'isFeatured': 'isFeature' } })
+// if we want to delete the key name of the document we need to use this (command) $unset:
+db.products.updateMany({ 'price': 55 }, { $unset: { 'isFeatured': 'isFeature' } })
+
+// updating array and embedded documents
+$push, $pop, $set, $unset
+
+// add new field (key) in obj
+db.sales.updateOne({ '_id': 3 }, { $set: { 'oldPrice': 30 } })
+// delete field (key) in obj
+db.sales.updateOne({ '_id': 3 }, { $unset: { 'oldPrice': 1 } })
+db.comments.updatedOne({'_id':6},{$unset:{'metadata':1}})
+// want to add data in array obj
+db.comments.updateOne({ '_id': 5 }, { $push: { comments: { user: 'zain', text: 'now its good' } } })
+// want to delete data at the last from an array obj
+db.comments.updateOne({ '_id': 5 }, { $pop: { comments: 1 } })
+// wan to change the key value of an array object by using positional ($) operator use this (command)
+db.comments.updateOne({ 'comments.user': 'Jack' }, { $set: { 'comments.$.text': 'text change hogaya' } })
+
+// delete whole document from collection
+deleteOne(), deleteMany()
+// delete one document from collection
+db.comments.deleteOne({ 'price': 55 })
+// delete all document from collection on behalf of price
+db.comments.deleteMany({ 'price': 55 })
+
+
+// projection
+// to show any one field that will select by 1
+db.comments.find({'comments':{$size:2}},{comments:1})
+
+// if dont want to show id just give value to the key 0 and it will not show:(exception only for id)
+db.comments.find({'comments':{$size:2}},{comments:1,_id:0})
+
+
+// agreegation
+
+// $match method to add multiple conditions
+db.products.aggregate([{ $match: { 'name': 'Gorgeous Rubber Chair' } }])
+db.comments.aggregate([{$match:{$and:[{ 'metadata.views': {$gte:800,$lte:1000}},{ 'metadata.likes': {$gte:50}}]}}])
+db.comments.aggregate([{ $match: { $and: [{ 'metadata.views': { $gt: 800, $lt: 1000 } }, { 'metadata.likes': { $gt: 50 } }] } },])
+
+// $group method
+// how many same items are exists we need must _id and calc how many same items is there use {$sum:1}
+db.products.aggregate([{ $group: { _id: '$name', total: { $sum: 1 } } }])
+// if you want to sum any other key value like price items etc we need to change just this.
+db.products.aggregate([{ $group: { _id: '$name', total: { $sum: '$price' } } }])
+// find average
+db.products.aggregate([{ $match: { 'name': 'Building Blocks Set' } }, { $group: { _id: '$name', total: { $sum: '$price' }, average: { $avg: '$price' } } }, { $sort: { total: -1 } }])
+// sort by descending order using $sort -1
+db.products.aggregate([{ $match: { 'price': { $gt: 1200 } } }, { $group: { _id: '$name', total: { $sum: '$price' }, average: { $avg: '$price' } } }, { $sort: { total: -1 } }])
+
+// project method to filter more data and add multiple fields
+db.products.aggregate([{ $match: { 'price': { $gt: 1200 } } }, { $project: { price: 1, _id: 0, discountPrice: { $multiply: ['$price', 0.5] } } }])
+
+// unwind method use to deconstruct or destructure the array data.
+db.products.aggregate([{ $unwind: '$colors' }, { $match: { 'price': { $gt: 1200 } } }, { $group: { _id: '$price', allColors: { $push: '$colors' } } }])
+// use addtoset method instead of push (stage) to remove duplicate data from array at that time you add data in array.
+db.products.aggregate([{ $unwind: '$colors' }, { $match: { 'price': { $gt: 1200 } } }, { $group: { _id: '$price', allColors: { $addToSet: '$colors' } } }])
+
+db.products.find({ 'price': { $eq: 49 } }, { price: 1, colors: 1, _id: 0 })
+
+db.products.aggregate([{ $unwind: '$colors' },{$match:{'price':{$eq:49}}}, { $group: { _id: '$price', allColors: { $addToSet: '$colors' } } }])
+
+
+
+
+// explain()
+
+db.comments.find({'comments':{$size:2}},{comments:1}).explain();
+db.comments.find({'comments':{$size:2}},{comments:1}).explain("executionStats");
+
+

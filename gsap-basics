@@ -1,0 +1,28 @@
+//gsap methods:
+
+gsap.to(), gsap.from(), gsap.fromTo()
+
+gsap.fromTo(".selector", {x: 700, y:500, opacity:0, duration: 3}, {x: 700, y:500,  opacity:1, scale:2, duration: 3} );
+
+//1st curly brackets is from variable and the 2nd one is To. We can add multiple css properties to these variables.
+
+// gsap is object
+
+// {".circle", {duration:5, x: 1000, y: 200,}} first is parameter second vars object //
+
+// gsap.to, gsap.from, gsap.fromTo, these are methods
+
+// methods fromTo, to, from
+// delay:1
+// repeat: 1 once
+// repeat: -1 infinite
+// yoyo: true back/fwd
+// ease: "bounce"
+
+// one by one animation at same time
+// stagger: {
+//   // amount: 1,
+//   each: 0.2,
+//   from: "end"
+// }
+// stagger:0.5,
