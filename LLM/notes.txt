@@ -1,0 +1,14 @@
+1️⃣ LLMs don't look up for exact answer.They give every possible next word a chance, then pick one. LLMs are prediction engine. They always predict based on probability and they predict patterns. they can answer differently
+
+2️⃣️ Black box: process ➡ ✅ Tokens ➡ ✅ Embeddings ➡ ✅ Neural Network ➡ ✅ Parameters  
+
+✅ Neural Network: input text ka use kar k processing karna or text out put dena. its weights parameter do the math
+
+✅ Tokens: jo bhi text question prompt llm ko pass karte hein wo usko fixed number mein convert karta hai or jis fixed number mein convert karna hai wo rule pehle se hi set hota hai
+
+✅ Parameters: jo bhi words prompt mein hote hein pehle wo token mein convert hote hein or phr har token ka relation ship find karta hai like apple = fruit(0.9) = mango(0.1) another example good = morning(0.9) = banana(0.1) in numbers ko bolte hein parameter. 
+
+
+✅ Embeddings: Like as child hum jab hum parents se question karte thay k papa yai kya hai ? papa ne bataya cat hai yai dog hai wo yai nahi bolte thay k bhai yai cat hai iski nose aisi hai eyes aisi hain voice aisi hai yai hum khud se dekh k observe karte thay k cat aisi hoti hai aise chalti hai aise awaaz nikalti hai. isko kehte hein embeddings yai features batati hein k word ya object k kitne features llm k pass hein isko vector bhi kaha jata hai. aik llm k pass aik word k atleast thousands of embeddings and characteristics hoti hein. or yai embeddings training time par hi calculate karli jati hein run time par kuch bhi create nahi hota.
+
+Temperature Top-k Top-p

@@ -1,0 +1,80 @@
+═══════════════════════════════════════════
+📘 git-code
+═══════════════════════════════════════════
+
+git config --global user.email "zainyzain64@gmail.com"
+
+git config --global --list
+
+❓ how to go drive c or d or e:
+____________________________
+
+$ cd D:
+
+❓ how to go directory:
+___________________
+
+$ dir
+
+❓ how to go folder:
+________________
+
+$ cd foldername
+
+❓ how to back from directory:
+__________________________
+
+$ cd ..
+
+🔹 folder initialized
+-------------------
+🔹 command: git init
+
+🔹 add files
+---------
+🔹 command: git add .
+
+🔹 commit
+------
+🔹 command: git commit -m "write your comment here"
+
+💻
+git status
+----------
+🔹 command: git status
+
+🔹 online to local add folder
+--------------------------
+
+🔹 command: git remote add origin https://github.com/zain64-design/All-Season.git dummy
+
+🔹 local to online repo
+--------------------
+
+🔹 command: git push -u origin master
+
+🔹 or 
+
+💻
+git push origin HEAD:master
+
+
+
+
+❓ how to create folder:
+--------------------
+$ mkdir foldername
+
+
+
+
+
+
+🔹 https://padzee.com/zain-JS-NOTES
+🔹 https://padzee.com/zain-REACT-BASICS
+🔹 https://padzee.com/zain-ruff
+
+
+  git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
+

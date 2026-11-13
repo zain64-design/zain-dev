@@ -1,0 +1,26 @@
+═══════════════════════════════════════════
+📘 data types
+═══════════════════════════════════════════
+
+🔹 data types
+🔹 variables
+🔹 browser context api
+🔹 execution context
+🔹 Javascript Logical Operators
+🔹 primitives Reference data types
+🔹 if else
+🆚 diff b/w truthy falsy
+🔹 simple functions arrow functions
+🔹 Hoisting
+🔹 first class functions
+🔹 immediately invoked function
+🔹 pure and impure function
+🔹 closures
+🔹 loop types
+🔹 Arrays
+🔹 Objects
+🔹 array objects destructuring
+🔹 Prototype
+🔹 template strings
+🔹 rest,spread operator
+🔹 Promises
